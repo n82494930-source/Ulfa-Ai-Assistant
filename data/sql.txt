@@ -1,0 +1,151 @@
+BUILT IN FUNCTIONS IN SQL
+	
+CONDITIONAL FUNCTIONS
+IIF,CASE,IFNULL,COALESCE AND NULLIF are conditional functions
+
+--> IIF FUNCTION: This Function returns first value if the condition is true otherwise it gonna print second value.
+  SYNTAX:  IIF(Condition,TRUE_VALUE,FALSE_VALUE)	
+   SELECT IIF(99+1=100,'CORRECT','WRONG') It gonna give output as Correct as condition evaluates as TRUE
+   SELECT IIF(99-1=100,'CORRECT','WRONG') It gonna give reverse results bcz condition evaluates as False 
+
+SQL QUERY ON IIF
+ SELECT Country,
+ total_population,
+  IIF (total_population>1000000000,
+  'Very High',
+   IIF(total_population>250000000,
+   'High',
+    IIF(total_population>150000000, 
+    'Medium','Low'))) as population_category
+      
+       from population;
+
+--->  SIMPLE CASE EXPRESSION: Evaluates a list of conditions and returns a value based on the results of evaluation.
+Syntax
+      SELECT SELECTOR_EXPRESSION
+      WHEN MATCH_EXPRESSION_1 THEN RESULTS_1
+      WHEN MATCH_EXPRESSION_1 THEN RESULTS_1
+      .....
+      [ELSE results_else]
+ END
+
+SQL QUERY:
+SELECT country,
+CASE country
+   WHEN 'United States'  THEN 'North America'
+   WHEN 'Mexico' THEN 'North America'
+   WHEN 'Brazil' THEN 'South America'
+   ELSE continent
+END AS continent,
+   total_population
+   FROM population;
+
+SEARCHED CASE EXPRESSION:
+Syntax
+      SELECT SELECTOR_EXPRESSION
+      WHEN BOOLEAN_EXPRESSION_1 THEN RESULTS_1
+      WHEN BOOLEAN_EXPRESSION_1 THEN RESULTS_1
+      .....
+      [ELSE results_else]
+ END
+SQL QUERY:
+SELECT country,
+       total_population,
+       CASE 
+           WHEN total_population >1000000000 then 'Very High'
+           WHEN total_population >250000000 then 'High'
+           WHEN total_population > 150000000 then 'Medium'
+           ELSE 'Low'
+       END AS population_category
+           FROM population;
+---> IFNULL: Returns the second parameter if first parameter is null
+     SYNTAX:
+            IFNULL(PARAMETER_1,PARAMETER_2) 
+     SELECT ISNULL (Null,'second') IT GONNA GIVE RESULTS AS SECOND AS first parameter is null
+     SELECT ISNULL ('First','second') IT GONNA GIVE RESULTS AS FIRST AS first parameter is NOT null
+
+SELECT 
+IFNULL(COUNTRY, 'Unknown country') AS country,
+IFNULL(continent, 'Unknown continent') AS continent,
+total_population
+FROM POPULATION;
+
+--->> COALESCE: Used to return the first non null value from values supplied
+SYNTAX:
+COALESCE(val1,val2,val3......)
+SQL QUERY:
+SELECT country,
+       continent,
+       coalesce(total_population_2023,total_population_2022,total_population_2021) AS latest_population
+         FROM population;
+---> NULLIF: RETURNS NULL If both parameter values are the same, otherwisw it will return vlue of the first parameter
+    Syntax: NULLIF(Parameter_1,parameter_2)
+
+SELECT country,
+       NULLIF(continent, 'Unknown') AS continent,
+       NULLIF(total_population, 0) AS total_population
+  FROM population; 
+--->>JOINS: Joins are use to combine two or more tables based on a related column
+
+INNER JOIN returns ovly columns which are common in both tables(Matching data from both tables)
+There is no particular main table both tables contributes
+>....When to use:
+
+You only want rows that exist in both tables.
+
+Example: “Show employees who are assigned to a department
+
+LEFT JOIN (All From Left, Even If There Is No Match)
+ Returns all the tables from left table and ,Matching tables from right table and which table data you want from 2 can consider as main table  
+✅ When to use:
+
+When the left table is your main table, and you want everything from it.
+
+Example: “List all employees, and show department name if available
+
+
+VISE VERSA FOR RIGHT TABLE	
+
+FULL JOIN (“Everything from both sides”)
+Returns bith tables's data, Matched where possible and NULL Where no match
+✅ When to use:
+
+To see all data from both tables, matched and unmatched.
+
+Example: “Show all employees and all departments, even if they don’t link.”
+
+CROSS JOIN “All combinations”
+✅ When to use:
+
+Rarely used; for generating all possible combinations (like pairing items).
+
+Ranks Functions
+SQL provides special window functions to assign a rank or number to rows based on some ordering (like salary, marks, sales, etc.)
+1) ROW_NUMBER() — unique sequential number per row
+It Assigns unique numbers like 1.2.3.4.... to each row in ordee to specify And ties get different numbers.
+
+/././. What PARTITION BY does
+PARTITION BY divides your result set into groups (partitions), and the window function is applied separately to each group.
+
+SELECT 
+    EName,
+    Dept_Name,
+    Salary,
+    RANK() OVER (
+        PARTITION BY Dept_Name
+        ORDER BY Salary DESC
+    ) AS Salary_Rank
+FROM Emp_Data;
+
+
+1️⃣ What is STRING_AGG?
+
+STRING_AGG is an aggregate function that concatenates multiple string values from multiple rows into a single string.
+
+It’s commonly used when you want a comma-separated list (or any separator) of values from a group.
+
+
+
+
+
+
