@@ -47,5 +47,40 @@ Ulfa aims to become a personal AI agent capable of:
 
 The project demonstrates modular AI engineering, API integration, and scalable architecture design.
 
+📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/n82494930-source/Ulfa-Ai-Assistant.git
+cd Ulfa-Ai-Assistant
+```
+
+Create and activate virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install openai python-dotenv requests
+```
+
+Create `.env` file:
+
+```env
+OPENAI_API_KEY=OPENAI_API_KEY
+ADZUNA_API_ID=ADZUNA_API_ID
+ADZUNA_API_KEY=ADZUNA_API_KEY
+```
+
+Run the assistant:
+
+```bash
+python main.py
+```
 📄 License:
 This project is licensed under the MIT License.
